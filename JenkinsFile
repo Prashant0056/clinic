@@ -1,31 +1,64 @@
 pipeline {
-    agent {
-        node {
-            label "docker-agent-alpine"
+    agent { 
+        node { 
+            label "docker-agent-node" 
         }
     }
 
     triggers {
-        pollSCM '*/5 * * * *'
+        pollSCM '*/5 * * * *' 
     }
 
     stages {
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo "Building"
+                echo "Installing Dependencies"
+                sh '''
+                    cd admin-panel
+                    npm install
+                    cd ../health-clinic
+                    npm install
+                '''
             }
         }
 
-        stage('Test') {
+        stage('Test Admin Panel') {
             steps {
-                echo "Testing"
+                echo "Testing Admin Panel"
+                sh '''
+                    cd admin-panel
+                    npm run dev
+                '''
             }
         }
 
-        stage('Deliver') {
+        stage('Test Health Clinic') {
             steps {
-                echo "Deploying"
+                echo "Testing Health Clinic"
+                sh '''
+                    cd health-clinic
+                    npm run dev
+                '''
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying Application (NOT WORKING FOR NOW)"
+              
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline Finished'
+        }
+        success {
+            echo 'Pipeline Succeeded'
+        }
+        failure {
+            echo 'Pipeline Failed'
         }
     }
 }
