@@ -36,11 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative">
-            <div className="w-full flex justify-end absolute top-16 right-12">
-              <ThemeToggle />
-            </div>
-
+          <div>
             {children}
           </div>
         </ThemeProvider>

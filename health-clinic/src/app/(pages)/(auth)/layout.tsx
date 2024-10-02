@@ -1,17 +1,16 @@
 import { ThemeToggle } from "@/components/global/themeToggle";
-import { ReactNode } from "react";
 
-const LoginLayout=({children}:{children: ReactNode})=>{
+const AuthLayout=({children}:{children: React.ReactNode})=>{
     return(
-        <>
         <div className="relative bg-background h-screen p-10">
             <div className="w-full flex justify-end absolute top-16 right-12 z-50">
-              <ThemeToggle />
+              <ThemeToggle/>
             </div>
-            {children}
-          </div>
-        </>
+            <div>
+                {children}
+            </div>
+        </div>
     )
 }
 
-export default LoginLayout;
+export default AuthLayout;

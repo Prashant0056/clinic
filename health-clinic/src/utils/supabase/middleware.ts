@@ -1,10 +1,11 @@
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
-  })
+  });
+  const url = request.nextUrl;
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,33 +13,57 @@ export async function updateSession(request: NextRequest) {
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll()
+          return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({
-            request,
-          })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value);
+            supabaseResponse.cookies.set(name, value, options);
+          });
         },
       },
     }
-  )
-// Avoid writing any logic here. Referencec: Supabase Docs
-  const {data: { user },} = await supabase.auth.getUser()
+  );
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  if (url.pathname === '/forgot-password/update') {
+    const code = url.searchParams.get('code');
+    if (!code) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = '/login';
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    // Exchange the code for a session
+    const { data: sessionData, error: sessionError } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (sessionError) {
+      console.error("Error while exchanging code for session: " + sessionError.message);
+      // return NextResponse.redirect('/error'); // Redirect to an error page
+    }
+
+    // Check if session data exists
+    if (!sessionData) {
+      console.error("Session data is missing after code exchange.");
+      // return NextResponse.redirect('/error'); // Redirect to an error page
+    }
   }
 
-  return supabaseResponse
+  // Retrieve the user after ensuring session is set
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const user = userData?.user;
+
+  if (userError) {
+    console.error('Error fetching user: ' + userError.message);
+  } else {
+    console.log("This is the user: ", user);
+  }
+
+  if (!user && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/auth')) {
+    // No user, redirect to login page
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/login';
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  return supabaseResponse;
 }

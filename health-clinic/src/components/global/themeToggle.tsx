@@ -14,6 +14,7 @@ export function ThemeToggle() {
       variant="themeToggle"
       size="themeToggle"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="animate-fade-in-custom"
       >
       <Sun color="black" className="h-[1.5rem] w-[1.5rem] dark:hidden" />
       <Moon className="hidden h-5 w-5 dark:block" />
