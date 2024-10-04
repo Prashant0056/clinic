@@ -1,3 +1,5 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -15,8 +17,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Separator } from '../ui/separator';
-import createClient from '@/utils/supabase/client';
+import createClient from '@/supabase/client';
 import { toast, Toaster } from 'sonner';
 
 const supabase = createClient();
@@ -121,36 +122,9 @@ const LoginForm = () => {
               >
                 Login
               </Button>
-
-              {isRedirecting ? (
-                <p className="text-gray-500 underline underline-offset-4 decoration-1">
-                  Forgot password?
-                </p>
-              ) : (
-                <Link
-                  href={'/forgot-password'}
-                  className="text-center underline underline-offset-4 decoration-1"
-                  onClick={() => setIsRedirecting(true)}
-                >
-                  Forgot Password?
-                </Link>
-              )}
             </div>
           </form>
         </Form>
-        <div className="px-10">
-          <Separator className="" />
-        </div>
-        <div className="flex justify-center">
-          <Button
-            disabled={isRedirecting}
-            variant={'secondary'}
-            className="text-[1.1em] px-8 py-6 "
-            onClick={() => redirect('signup')}
-          >
-            Signup
-          </Button>
-        </div>
       </div>
     </>
   );
