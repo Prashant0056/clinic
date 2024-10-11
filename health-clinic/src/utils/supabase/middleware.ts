@@ -52,11 +52,8 @@ export async function updateSession(request: NextRequest) {
   const { data: userData, error: userError } = await supabase.auth.getUser();
   const user = userData?.user;
 
-  if (userError) {
+  if (userError) 
     console.error('Error fetching user: ' + userError.message);
-  } else {
-    console.log("This is the user: ", user);
-  }
 
   if (!user && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/auth')) {
     // No user, redirect to login page

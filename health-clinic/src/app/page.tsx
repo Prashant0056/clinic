@@ -1,7 +1,9 @@
 "use client";
 
+import { ThemeToggle } from "@/components/global/themeToggle";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -20,15 +22,19 @@ export default function Home() {
   return (
     <>
       <div className="h-screen w-screen flex justify-center text-black bg-background dark:text-white">
-        <div className="h-screen w-4/5 flex flex-col items-center justify-between pt-96 pb-16 ">
+      <div className="w-full flex justify-end absolute top-16 right-12 z-50">
+              <ThemeToggle/>
+            </div>
+        <div className="h-screen w-4/5 flex flex-col items-center justify-between pt-40 pb-16 ">
           <div className="w-fit h-fit flex items-center flex-col gap-[5vh]">
-            <h1
-              className={`text-[2em] transition-opacity duration-1000 ${
+            <div
+              className={`text-[2em] flex flex-col justify-center items-center gap-[5vh] transition-opacity duration-1000 ${
                 isAnimating ? "opacity-0" : ""
               }`}
             >
-              Niraj Clinic
-            </h1>
+              <Image src='/images/logo.svg' alt="Clinic Logo" width={200} height={200} className="bg-red-50 rounded-full" priority={true}/>
+              Shalom Health Clinic
+            </div>
 
             <Button
               disabled={isAnimating}
