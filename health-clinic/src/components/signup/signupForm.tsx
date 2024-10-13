@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import createClient from "@/utils/supabase/client";
+import { toast } from "sonner";
 
 const supabase = createClient()
 
@@ -75,7 +76,9 @@ const SignupForm = () => {
     })
     
     if(error)
-      console.log(error)
+      toast.error("Error",{
+    description: "Error while loggin in"
+  })
     else
       router.push('/login')
   };

@@ -4,6 +4,7 @@ import ResetForm from "@/components/forgot-password/SendResetRequest";
 
 
 
+
 const ForgotPassword=()=>{
     return(
         <div className="bg-background h-full pt-[25vh] text-black dark:text-white flex flex-col gap-9">

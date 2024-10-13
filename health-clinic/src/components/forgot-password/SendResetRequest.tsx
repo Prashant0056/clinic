@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import createClient from "@/utils/supabase/client";
 
 const supabase = createClient()
@@ -53,7 +53,6 @@ const ResetForm=()=>{
 
     return(
         <div className="">
-            <Toaster richColors/>
             <Card>
                 <CardHeader className="pb-14">
                     <CardTitle className="text-center">

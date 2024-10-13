@@ -1,6 +1,5 @@
 "use client"
 
-import LoginForm from "@/components/login/loginForm";
 import SignupForm from "@/components/signup/signupForm";
 
 const Signup=()=>{

@@ -84,7 +84,6 @@ const UpdatePasswordForm = () => {
 
   return (
     <div>
-        <Toaster/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-6">

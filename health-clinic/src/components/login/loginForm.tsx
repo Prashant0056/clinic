@@ -4,7 +4,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Separator } from "../ui/separator";
 import createClient from "@/utils/supabase/client";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 const supabase = createClient()
 
@@ -71,7 +70,6 @@ const LoginForm = () => {
 
   return (
     <>
-    <Toaster richColors/>
     <div className="flex flex-col gap-6">
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col items-center gap-[3vh]">

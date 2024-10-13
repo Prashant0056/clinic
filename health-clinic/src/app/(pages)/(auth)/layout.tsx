@@ -1,4 +1,5 @@
 import { ThemeToggle } from "@/components/global/themeToggle";
+import { Toaster } from "sonner";
 
 const AuthLayout=({children}:{children: React.ReactNode})=>{
     return(
@@ -8,6 +9,7 @@ const AuthLayout=({children}:{children: React.ReactNode})=>{
             </div>
             <div>
                 {children}
+                <Toaster richColors/>
             </div>
         </div>
     )

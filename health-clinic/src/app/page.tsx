@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const router = useRouter();
