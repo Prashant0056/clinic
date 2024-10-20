@@ -13,7 +13,7 @@ const HomeHeader = ({ name }: { name: string }) => {
             {initials}
           </AvatarFallback>
         </Avatar>
-        <p className="text-xl">Welcome! {name}</p>
+        <p className="text-xl font-bold">Welcome! </p><span className="text-primary text-xl"> {name}</span>
       </div>
       <ThemeToggle />
     </div>
