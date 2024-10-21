@@ -3,7 +3,7 @@
 import { ThemeToggle } from "@/components/global/themeToggle";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

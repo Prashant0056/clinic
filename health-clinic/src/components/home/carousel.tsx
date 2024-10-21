@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Autoplay from 'embla-carousel-autoplay';
 

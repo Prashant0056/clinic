@@ -4,7 +4,7 @@ import { UserProvider } from "@/context/userContext";
 const ProtectedLayout=({children}:{children: React.ReactNode})=>{
     return(
         <UserProvider>
-        <div className="h-screen">
+        <div className="flex">
             {children}
             <Navbar/>
         </div>
